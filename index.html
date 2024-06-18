@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="None">
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>My Docs</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body class="homepage">
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">My Docs</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#instalacao-do-glpi-no-ubuntu" class="nav-link">Instalação do GLPI no Ubuntu</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#indice" class="nav-link">Índice</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#introducao" class="nav-link">Introdução</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#pre-requisitos" class="nav-link">Pré-requisitos</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#passos-de-instalacao" class="nav-link">Passos de Instalação</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#referencias" class="nav-link">Referências</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="instalacao-do-glpi-no-ubuntu">Instalação do GLPI no Ubuntu</h1>
+<h2 id="indice">Índice</h2>
+<ol>
+<li><a href="#introdução">Introdução</a></li>
+<li><a href="#pré-requisitos">Pré-requisitos</a></li>
+<li><a href="#passos-de-instalação">Passos de Instalação</a></li>
+<li><a href="#atualizar-o-sistema">Atualizar o Sistema</a></li>
+<li><a href="#instalar-o-servidor-web-apache">Instalar o Servidor Web (Apache)</a></li>
+<li><a href="#instalar-o-sgbd-mysqlmariadb">Instalar o SGBD (MySQL/MariaDB)</a></li>
+<li><a href="#instalar-o-php-e-extensões-necessárias">Instalar o PHP e Extensões Necessárias</a></li>
+<li><a href="#baixar-e-configurar-o-glpi">Baixar e Configurar o GLPI</a></li>
+<li><a href="#configurar-o-banco-de-dados-para-o-glpi">Configurar o Banco de Dados para o GLPI</a></li>
+<li><a href="#configurar-o-apache-para-o-glpi">Configurar o Apache para o GLPI</a></li>
+<li><a href="#concluir-a-instalação-via-web">Concluir a Instalação via Web</a></li>
+<li><a href="#conclusão">Conclusão</a></li>
+<li><a href="#referências">Referências</a></li>
+</ol>
+<h2 id="introducao">Introdução</h2>
+<p>O GLPI (Gestionnaire Libre de Parc Informatique) é uma solução de código aberto para gerenciamento de ativos de TI e help desk. Este guia fornecerá instruções passo a passo para instalar e configurar o GLPI em um servidor Ubuntu.</p>
+<h2 id="pre-requisitos">Pré-requisitos</h2>
+<p>Antes de começar, certifique-se de ter:</p>
+<ul>
+<li>Um servidor Ubuntu (versão 18.04 ou superior).</li>
+<li>Acesso root ou um usuário com privilégios sudo.</li>
+<li>Acesso à internet para baixar pacotes necessários.</li>
+</ul>
+<h2 id="passos-de-instalacao">Passos de Instalação</h2>
+<h3 id="atualizar-o-sistema">Atualizar o Sistema</h3>
+<p>Primeiro, vamos garantir que o sistema está atualizado:</p>
+<pre><code class="language-bash">sudo apt update
+sudo apt upgrade -y
+</code></pre>
+<h3 id="instalar-o-servidor-web-apache">Instalar o Servidor Web (Apache)</h3>
+<p>Vamos instalar o Apache, que será usado como nosso servidor web:</p>
+<pre><code class="language-bash">sudo apt install apache2 -y
+</code></pre>
+<h3 id="instalar-o-sgbd-mysqlmariadb">Instalar o SGBD (MySQL/MariaDB)</h3>
+<p>O GLPI requer um banco de dados MySQL ou MariaDB. Vamos instalar o MariaDB:</p>
+<pre><code class="language-bash">sudo apt install mariadb-server mariadb-client -y
+</code></pre>
+<p>Após a instalação, inicie e habilite o serviço MariaDB:</p>
+<pre><code class="language-bash">sudo systemctl start mariadb
+sudo systemctl enable mariadb
+</code></pre>
+<h3 id="instalar-o-php-e-extensoes-necessarias">Instalar o PHP e Extensões Necessárias</h3>
+<p>O GLPI requer o PHP e algumas extensões. Vamos instalar o PHP e as extensões recomendadas:</p>
+<pre><code class="language-bash">sudo apt install php libapache2-mod-php php-mysql php-xml php-mbstring php-ldap php-curl php-imap php-gd php-intl php-zip php-bz2 php-json php-bcmath -y
+</code></pre>
+<h3 id="baixar-e-configurar-o-glpi">Baixar e Configurar o GLPI</h3>
+<p>Faça o download da versão mais recente do GLPI no site oficial ou use o comando <code>wget</code> para baixar o arquivo:</p>
+<pre><code class="language-bash">wget https://github.com/glpi-project/glpi/releases/download/10.0.10/glpi-10.0.10.tgz
+</code></pre>
+<p>Descompacte o arquivo baixado:</p>
+<pre><code class="language-bash">tar -xvzf glpi-10.0.10.tgz
+</code></pre>
+<p>Mova o diretório <code>glpi</code> para o diretório do Apache:</p>
+<pre><code class="language-bash">sudo mv glpi /var/www/html/
+</code></pre>
+<p>Altere a propriedade do diretório <code>glpi</code> para o usuário do Apache:</p>
+<pre><code class="language-bash">sudo chown -R www-data:www-data /var/www/html/glpi
+</code></pre>
+<p>Dê permissões adequadas ao diretório:</p>
+<pre><code class="language-bash">sudo chmod -R 755 /var/www/html/glpi
+</code></pre>
+<h3 id="configurar-o-banco-de-dados-para-o-glpi">Configurar o Banco de Dados para o GLPI</h3>
+<p>Acesse o console do MariaDB:</p>
+<pre><code class="language-bash">sudo mysql -u root -p
+</code></pre>
+<p>Crie um banco de dados e um usuário para o GLPI:</p>
+<pre><code class="language-sql">CREATE DATABASE glpidb;
+CREATE USER 'glpiuser'@'localhost' IDENTIFIED BY 'senha_segura';
+GRANT ALL PRIVILEGES ON glpidb.* TO 'glpiuser'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+</code></pre>
+<h3 id="configurar-o-apache-para-o-glpi">Configurar o Apache para o GLPI</h3>
+<p>Crie um arquivo de configuração para o GLPI no Apache:</p>
+<pre><code class="language-bash">sudo nano /etc/apache2/sites-available/glpi.conf
+</code></pre>
+<p>Adicione o seguinte conteúdo ao arquivo:</p>
+<pre><code class="language-apache">&lt;VirtualHost *:80&gt;
+    ServerAdmin admin@seusite.com
+    DocumentRoot /var/www/html/glpi
+    ServerName seusite.com
+    &lt;Directory /var/www/html/glpi/&gt;
+        Options FollowSymLinks
+        AllowOverride All
+        Require all granted
+    &lt;/Directory&gt;
+    ErrorLog ${APACHE_LOG_DIR}/glpi_error.log
+    CustomLog ${APACHE_LOG_DIR}/glpi_access.log combined
+&lt;/VirtualHost&gt;
+</code></pre>
+<p>Habilite o site GLPI e reescritas de URL:</p>
+<pre><code class="language-bash">sudo a2ensite glpi.conf
+sudo a2enmod rewrite
+</code></pre>
+<p>Reinicie o Apache para aplicar as mudanças:</p>
+<pre><code class="language-bash">sudo systemctl restart apache2
+</code></pre>
+<h3 id="concluir-a-instalacao-via-web">Concluir a Instalação via Web</h3>
+<ol>
+<li>Abra um navegador web e acesse <code>http://seusite.com</code>.</li>
+<li>Siga as instruções na tela para concluir a instalação.</li>
+<li>Insira as informações do banco de dados que você criou anteriormente (<code>glpidb</code>, <code>glpiuser</code>, <code>senha_segura</code>).</li>
+<li>Siga os passos restantes para configurar o GLPI.</li>
+</ol>
+<h2 id="referencias">Referências</h2>
+<ul>
+<li><a href="https://glpi-project.org/">Site Oficial do GLPI</a></li>
+<li><a href="https://glpi-install.readthedocs.io/en/latest/index.html">Documentação do GLPI</a></li>
+<li><a href="https://ubuntu.com/server/docs">Documentação do Ubuntu</a></li>
+</ul>
+<hr />
+<p>Se tiver alguma dúvida ou precisar de mais assistência, sinta-se à vontade para perguntar!</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
+
+<!--
+MkDocs version : 1.1.2
+Build Date UTC : 2024-06-18 01:38:55.432391+00:00
+-->
